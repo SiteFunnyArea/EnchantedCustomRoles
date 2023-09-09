@@ -11,25 +11,25 @@ namespace EnchantedCustomRoles.Ability
 {
     internal class CannotPickup : PassiveAbility
   {
-    public virtual string Name { get; set; } = nameof (CannotPickup);
+    public override string Name { get; set; } = "CannotPickup";
 
-    public virtual string Description { get; set; } = "hmm... it seems that you can't pickup item, sorry for you";
+    public override string Description { get; set; } = "hmm... it seems that you can't pickup item, sorry for you";
 
-    protected virtual void SubscribeEvents()
+    protected override void SubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.PickingUpItem += new Exiled.Events.Events.CustomEventHandler<PickingUpItemEventArgs>(this.OnPickingItem);
-      ((CustomAbility) this).SubscribeEvents();
+      Exiled.Events.Handlers.Player.PickingUpItem += OnPickingItem;
+      base.SubscribeEvents();
     }
 
-    protected virtual void UnsubscribeEvents()
+    protected override void UnsubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.PickingUpItem -= new Exiled.Events.Events.CustomEventHandler<PickingUpItemEventArgs>(this.OnPickingItem);
-      ((CustomAbility) this).UnsubscribeEvents();
+      Exiled.Events.Handlers.Player.PickingUpItem -= OnPickingItem;
+      base.UnsubscribeEvents();
     }
 
     private void OnPickingItem(PickingUpItemEventArgs ev)
     {
-      if (!((CustomAbility) this).Check(ev.Player))
+      if (!Check(ev.Player))
         return;
       ev.IsAllowed = false;
     }

@@ -11,37 +11,37 @@ namespace EnchantedCustomRoles.Ability
 {
   internal class RebirthOnDeath : PassiveAbility
   {
-    public virtual string Name { get; set; } = "Rebirth";
+    public override string Name { get; set; } = "Rebirth";
 
-    public virtual string Description { get; set; } = "In case you die you can resurrect (once per life) and you will get half of your max life";
+    public override string Description { get; set; } = "In case you die you can resurrect (once per life) and you will get half of your max life";
 
-    protected virtual void SubscribeEvents()
+    protected override void SubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.Dying += new Exiled.Events.Events.CustomEventHandler<DyingEventArgs>(this.OnDeath);
-      ((CustomAbility) this).SubscribeEvents();
+            Exiled.Events.Handlers.Player.Dying += OnDeath;
+      base.SubscribeEvents();
     }
 
-    protected virtual void UnsubscribeEvents()
+    protected override void UnsubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.Dying -= new Exiled.Events.Events.CustomEventHandler<DyingEventArgs>(this.OnDeath);
-      ((CustomAbility) this).UnsubscribeEvents();
+      Exiled.Events.Handlers.Player.Dying -= OnDeath;
+            base.UnsubscribeEvents();
     }
 
-    protected virtual void AbilityAdded(Exiled.API.Features.Player player)
+    protected override void AbilityAdded(Exiled.API.Features.Player player)
     {
       Main.Instance.PlayersWithRebirthNotUsed.Add(player);
-      ((CustomAbility) this).AbilityAdded(player);
+      base.AbilityAdded(player);
     }
 
-    protected virtual void AbilityRemoved(Exiled.API.Features.Player player)
+    protected override void AbilityRemoved(Exiled.API.Features.Player player)
     {
       Main.Instance.PlayersWithRebirthNotUsed.Remove(player);
-      ((CustomAbility) this).AbilityRemoved(player);
+      base.AbilityRemoved(player);
     }
 
     private void OnDeath(DyingEventArgs ev)
     {
-      if (!((CustomAbility) this).Check(ev.Player))
+      if (Check(ev.Player))
         return;
       ev.IsAllowed = false;
       ev.Player.Health = ev.Player.MaxHealth / 2f;

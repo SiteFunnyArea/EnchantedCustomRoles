@@ -11,27 +11,26 @@ namespace EnchantedCustomRoles.Ability
 {
   internal class PryGate : PassiveAbility
   {
-    public virtual string Name { get; set; } = nameof (PryGate);
+    public override string Name { get; set; } = nameof (PryGate);
 
-    public virtual string Description { get; set; } = "bruh, you so strong that opening a gate is nothing but a joke";
+    public override string Description { get; set; } = "bruh, you so strong that opening a gate is nothing but a joke";
 
-    protected virtual void SubscribeEvents()
+    protected override void SubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.InteractingDoor += new Exiled.Events.Events.CustomEventHandler<InteractingDoorEventArgs>(this.OninteractingDoors);
-      ((CustomAbility) this).SubscribeEvents();
+      Exiled.Events.Handlers.Player.InteractingDoor += OninteractingDoors;
+      base.SubscribeEvents();
     }
 
-    protected virtual void UnsubscribeEvents()
+    protected override void UnsubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.InteractingDoor -= new Exiled.Events.Events.CustomEventHandler<InteractingDoorEventArgs>(this.OninteractingDoors);
-      ((CustomAbility) this).UnsubscribeEvents();
+      Exiled.Events.Handlers.Player.InteractingDoor -= OninteractingDoors;
+      base.UnsubscribeEvents();
     }
 
     private void OninteractingDoors(InteractingDoorEventArgs ev)
     {
-      if (!((CustomAbility) this).Check(ev.Player) || !ev.Door.IsGate)
+      if (!Check(ev.Player) || !ev.Door.IsGate)
         return;
-      ev.Door.TryPryOpen();
     }
   }
 }

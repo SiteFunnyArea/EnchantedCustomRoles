@@ -15,28 +15,28 @@ namespace EnchantedCustomRoles.Ability
 {
   internal class Kamikaze : PassiveAbility
   {
-    public virtual string Name { get; set; } = nameof (Kamikaze);
+    public override string Name { get; set; } = "Kamikaze";
 
-    public virtual string Description { get; set; } = "When You Die your corpse will explode";
+    public override string Description { get; set; } = "When you die, your corpse will explode";
 
-    protected virtual void SubscribeEvents()
+    protected override void SubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.Dying += new Exiled.Events.Events.CustomEventHandler<DyingEventArgs>(this.OnDying);
-      ((CustomAbility) this).SubscribeEvents();
+      Exiled.Events.Handlers.Player.Dying += OnDying;
+      base.SubscribeEvents();
     }
 
-    protected virtual void UnsubscribeEvents()
+    protected override void UnsubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.Dying -= new Exiled.Events.Events.CustomEventHandler<DyingEventArgs>(this.OnDying);
-      ((CustomAbility) this).UnsubscribeEvents();
+      Exiled.Events.Handlers.Player.Dying -= OnDying;
+      base.UnsubscribeEvents();
     }
 
     private void OnDying(DyingEventArgs ev)
     {
-      if (Main.Instance.PlayersWithRebirthNotUsed.Contains(ev.Player) || !((CustomAbility) this).Check(ev.Player))
+      if (Main.Instance.PlayersWithRebirthNotUsed.Contains(ev.Player) || !Check(ev.Player))
         return;
       ExplosionGrenadeProjectile x = ((ExplosiveGrenade) Exiled.API.Features.Items.Item.Create((ItemType) 25)).SpawnActive(ev.Player.Position, ev.Player);
-      Timing.CallDelayed(0.1f, (Action) (() => x.Explode()));
+      Timing.CallDelayed(0.1f, () => x.Explode());
     }
   }
 }

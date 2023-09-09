@@ -13,18 +13,18 @@ namespace EnchantedCustomRoles.Commands.RA
   [CommandHandler(typeof (GameConsoleCommandHandler))]
   public class ECR_RA : ParentCommand
   {
-    public virtual string Command { get; } = "EnchantedCustomRoles";
+    public override string Command { get; } = "EnchantedCustomRoles";
 
-    public virtual string[] Aliases { get; } = new string[1]
+    public override string[] Aliases { get; } = new string[1]
     {
       "ecr"
     };
 
-    public virtual string Description { get; } = "all the commands of the Enchanted Custom Roles plugin, use: ecr [subcommand]";
+    public override string Description { get; } = "all the commands of the Enchanted Custom Roles plugin, use: ecr [subcommand]";
 
     public ECR_RA() => ((CommandHandler) this).LoadGeneratedCommands();
 
-    public virtual void LoadGeneratedCommands()
+    public override void LoadGeneratedCommands()
     {
       ((CommandHandler) this).RegisterCommand((ICommand) new Roles());
       ((CommandHandler) this).RegisterCommand((ICommand) new Abilities());
@@ -32,7 +32,7 @@ namespace EnchantedCustomRoles.Commands.RA
       ((CommandHandler) this).RegisterCommand((ICommand) new GiveAbility());
     }
 
-    protected virtual bool ExecuteParent(
+    protected override bool ExecuteParent(
       ArraySegment<string> arguments,
       ICommandSender sender,
       out string response)

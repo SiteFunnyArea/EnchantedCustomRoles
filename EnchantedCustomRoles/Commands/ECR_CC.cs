@@ -13,20 +13,20 @@ namespace EnchantedCustomRoles.Commands
   [CommandHandler(typeof (ClientCommandHandler))]
   public class ECR_CC : ParentCommand
   {
-    public virtual string Command { get; } = "EnchantedAbility";
+    public override string Command { get; } = "EnchantedAbility";
 
-    public virtual string[] Aliases { get; } = new string[1]
+    public override string[] Aliases { get; } = new string[1]
     {
       "ea"
     };
 
-    public virtual string Description { get; } = "all the commands of the Enchanted Custom Roles plugin";
+    public override string Description { get; } = "all the commands of the Enchanted Custom Roles plugin";
 
     public ECR_CC() => ((CommandHandler) this).LoadGeneratedCommands();
 
-    public virtual void LoadGeneratedCommands() => ((CommandHandler) this).RegisterCommand((ICommand) new UseAbility());
+    public override void LoadGeneratedCommands() => ((CommandHandler) this).RegisterCommand((ICommand) new UseAbility());
 
-    protected virtual bool ExecuteParent(
+    protected override bool ExecuteParent(
       ArraySegment<string> arguments,
       ICommandSender sender,
       out string response)

@@ -12,25 +12,25 @@ namespace EnchantedCustomRoles.Ability
 {
   internal class Immortal : PassiveAbility
   {
-    public virtual string Name { get; set; } = nameof (Immortal);
+    public override string Name { get; set; } = "Immortal";
 
-    public virtual string Description { get; set; } = "You are immortal, so why not have fun?";
+    public override string Description { get; set; } = "You are immortal, so why not have fun?";
 
-    protected virtual void SubscribeEvents()
+    protected override void SubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.Hurting += new Exiled.Events.Events.CustomEventHandler<HurtingEventArgs>(this.OnHurtingEvent);
-      ((CustomAbility) this).SubscribeEvents();
+      Exiled.Events.Handlers.Player.Hurting += OnHurtingEvent;
+      base.SubscribeEvents();
     }
 
-    protected virtual void UnsubscribeEvents()
+    protected override void UnsubscribeEvents()
     {
-      Exiled.Events.Handlers.Player.Hurting -= new Exiled.Events.Events.CustomEventHandler<HurtingEventArgs>(this.OnHurtingEvent);
-      ((CustomAbility) this).UnsubscribeEvents();
+      Exiled.Events.Handlers.Player.Hurting -= OnHurtingEvent;
+      base.UnsubscribeEvents();
     }
 
     private void OnHurtingEvent(HurtingEventArgs ev)
     {
-      if (!((CustomAbility) this).Check(ev.Player) || ev.DamageHandler.Type == DamageType.Unknown || ev.DamageHandler.Type == DamageType.Crushed || ev.DamageHandler.IsSuicide)
+      if (!Check(ev.Player) || ev.DamageHandler.Type == DamageType.Unknown || ev.DamageHandler.Type == DamageType.Crushed || ev.DamageHandler.IsSuicide)
         return;
       ev.IsAllowed = false;
     }

@@ -18,7 +18,7 @@ namespace EnchantedCustomRoles.Configs
     public bool Debug { get; set; } = false;
 
     [Description("What Name should the CustomRoles folder have?")]
-    public string CustomRolesFolderName { get; set; } = "CustomRoles";
+    public string CustomRolesFolderName { get; set; } = "EnchantedCustomRoles";
 
     [Description("Should the plugin handle automatically the spawns of the players as customroles (true if you want the plugin to handle everything, or false if you want to enable your method to spawn the customroles)")]
     public bool ShouldThePluginSpawnCustomRolesAutomatically { get; set; } = true;

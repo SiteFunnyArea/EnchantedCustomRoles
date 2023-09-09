@@ -17,9 +17,9 @@ namespace EnchantedCustomRoles
 {
   public class Main : Plugin<PluginConfigs>
   {
-    private EventManager eventManager;
-    private AbilitiesManager abilitiesManager;
-    private RoleManager roleManager;
+    private EventManager? eventManager;
+    private AbilitiesManager? abilitiesManager;
+    private RoleManager? roleManager;
     public List<CustomRolesClass> CustomRoles = new List<CustomRolesClass>();
     public Dictionary<uint, int> CustomRolesAssignementCount = new Dictionary<uint, int>();
     public Dictionary<Player, List<CustomRolesClass>> PlayerCustomRoles = new Dictionary<Player, List<CustomRolesClass>>();
@@ -58,9 +58,9 @@ namespace EnchantedCustomRoles
       this.roleManager.ManageCustomRoles(false);
       this.abilitiesManager.RegisterAbilities(false);
       this.eventManager.EventLoader(false);
-      this.roleManager = (RoleManager) null;
-      this.abilitiesManager = (AbilitiesManager) null;
-      this.eventManager = (EventManager) null;
+      this.roleManager = null;
+      this.abilitiesManager = null;
+      this.eventManager = null;
       base.OnDisabled();
     }
   }

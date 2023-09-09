@@ -58,7 +58,7 @@ namespace EnchantedCustomRoles.CustomRolesManager
     public int MaxHealth { get; set; }
 
     [System.ComponentModel.Description("The broadcast shown to the player if he has this customrole")]
-    public Broadcast BroadCast { get; set; }
+    public Exiled.API.Features.Broadcast BroadCast { get; set; }
 
     [System.ComponentModel.Description("The rank that the player will receive, the color and if it will be showed")]
     public Rank Rank { get; set; }
@@ -103,10 +103,10 @@ namespace EnchantedCustomRoles.CustomRolesManager
         else
         {
           CustomItem customItem;
-          if (!CustomItem.TryGet(str, ref customItem))
+          if (!CustomItem.TryGet(str,out customItem))
             Log.Warn("The item " + str + " in the " + this.Name + " custom role inventory is not valid");
           else
-            customItem.Give(player, true);
+                        customItem.Give(player, true);
         }
       }
       foreach (KeyValuePair<AmmoType, ushort> keyValuePair in this.Ammo)

@@ -65,7 +65,7 @@ namespace EnchantedCustomRoles.Commands.CC
       if (customAbility1 is ActiveAbility activeAbility)
       {
         string str;
-        if (!activeAbility.CanUseAbility(key, ref str))
+        if (!activeAbility.CanUseAbility(key, out str))
         {
           response = str;
           return false;

@@ -30,19 +30,19 @@ namespace EnchantedCustomRoles.Handlers
         this.SpawnHandler = new OnSpawned();
         this.PlayerReceivingEffect = new EffectGiven();
         this.PlayerLeft = new OnLeft();
-        Exiled.Events.Handlers.Player.Verified += new Exiled.Events.Events.CustomEventHandler<VerifiedEventArgs>(this.PlayerVerified.OnPlayerVerified);
-        Exiled.Events.Handlers.Player.Spawned += new Exiled.Events.Events.CustomEventHandler<SpawnedEventArgs>(this.SpawnHandler.OnSpawn);
-        Exiled.Events.Handlers.Player.ReceivingEffect += new Exiled.Events.Events.CustomEventHandler<ReceivingEffectEventArgs>(this.PlayerReceivingEffect.GivenEffect);
-        Exiled.Events.Handlers.Player.Left += new Exiled.Events.Events.CustomEventHandler<LeftEventArgs>(this.PlayerLeft.OnPlayerLeft);
+        Exiled.Events.Handlers.Player.Verified += PlayerVerified.OnPlayerVerified;
+        Exiled.Events.Handlers.Player.Spawned += SpawnHandler.OnSpawn;
+        Exiled.Events.Handlers.Player.ReceivingEffect += PlayerReceivingEffect.GivenEffect;
+        Exiled.Events.Handlers.Player.Left += PlayerLeft.OnPlayerLeft;
         CheckPlayers();
         Log.Info("Events loaded correctly!");
       }
       else
       {
-        Exiled.Events.Handlers.Player.Left -= new Exiled.Events.Events.CustomEventHandler<LeftEventArgs>(this.PlayerLeft.OnPlayerLeft);
-        Exiled.Events.Handlers.Player.ReceivingEffect -= new Exiled.Events.Events.CustomEventHandler<ReceivingEffectEventArgs>(this.PlayerReceivingEffect.GivenEffect);
-        Exiled.Events.Handlers.Player.Spawned -= new Exiled.Events.Events.CustomEventHandler<SpawnedEventArgs>(this.SpawnHandler.OnSpawn);
-        Exiled.Events.Handlers.Player.Verified -= new Exiled.Events.Events.CustomEventHandler<VerifiedEventArgs>(this.PlayerVerified.OnPlayerVerified);
+        Exiled.Events.Handlers.Player.Left -= PlayerLeft.OnPlayerLeft;
+        Exiled.Events.Handlers.Player.ReceivingEffect -= PlayerReceivingEffect.GivenEffect;
+        Exiled.Events.Handlers.Player.Spawned -= SpawnHandler.OnSpawn;
+        Exiled.Events.Handlers.Player.Verified -= PlayerVerified.OnPlayerVerified;
         this.PlayerLeft = (OnLeft) null;
         this.PlayerReceivingEffect = (EffectGiven) null;
         this.SpawnHandler = (OnSpawned) null;

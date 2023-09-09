@@ -16,7 +16,7 @@ namespace EnchantedCustomRoles.CustomRolesManager
   {
     public void LoadCustomRoles()
     {
-      foreach (string file in Directory.GetFiles(Paths.Configs + "\\" + Main.Instance.Config.CustomRolesFolderName, "*.Yaml"))
+      foreach (string file in Directory.GetFiles(Paths.Configs + "/" + Main.Instance.Config.CustomRolesFolderName, "*.yml"))
       {
         try
         {
